@@ -26,3 +26,8 @@ Prints the entire hashtable. Takes in a Hashtable pointer as input.
 getValue(char* key)
 ```
 Returns a value of the key value pair, takes in a string as an input. 
+
+```
+freeMem(Hashtable* hashtable)
+```
+Frees up all the allocated memory in the hashtable. Takes in a Hashtable pointer as input.
