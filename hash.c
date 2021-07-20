@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define SIZE 10
+
+
+const int SIZE = 10;
 
 typedef struct node {
     int value;
@@ -131,6 +133,25 @@ void printTable(Hashtable* hashtable) {
     }
 }
 
+void freeMem(Hashtable* hashtable) {
+    for (int i = 0; i < SIZE; i++) {
+        if (hashtable->array[i].root == NULL) {
+            continue;
+        }
+        node* tmp = hashtable->array[i].root;
+        while (tmp != NULL) {
+            node* tmpnext = tmp->next;
+            free(tmp);
+            tmp = tmpnext;
+        }
+        hashtable->array[i].root = NULL;
+    }
+    free(hashtable);
+    hashtable = NULL;
+    printf("Memory freed.\n");
+    return;
+} 
+
 int main() {
     Hashtable* hash = malloc(sizeof(Hashtable));
     node* n = createNode("hello", 3);
@@ -142,4 +163,6 @@ int main() {
     hash = delete(n, hash);
     printTable(hash);
     getValue("hello", hash);
+    freeMem(hash);
+    printTable(hash);
 }
